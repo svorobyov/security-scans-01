@@ -1,0 +1,26 @@
+# 2023-02-05
+
+# https://github.com/marketplace/actions/what-is-lgtm
+# LGTM retires:
+# https://github.blog/2022-08-15-the-next-step-for-lgtm-com-github-code-scanning/
+
+on:
+#   issue_comment:
+#     types: [created]
+  push:
+    branches:
+      # - main
+      - nonexistent  # avoid triggering on main
+
+jobs:
+  lgtm:
+    runs-on: ubuntu-latest
+    name: LGTM Scan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: LGTM
+        # uses: beeceej/lgtm@v0.0.3  # /bin/sh: 1: ./bin/entrypoint: not found
+        uses: micnncim/action-lgtm-reaction@master  # no need to do any action
+        # env:
+        #   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

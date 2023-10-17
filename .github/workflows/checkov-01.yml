@@ -1,0 +1,27 @@
+# 2023-02-02
+
+# https://github.com/bridgecrewio/checkov-action
+
+name: checkov-01
+on:  # [push]
+  push:
+    branches:
+      # - main
+      - nonexistent  # avoid triggering on main
+jobs:
+  Checkov-Terraform-Scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Test with Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: terraform-in-action/chapter1
+          framework: terraform  # {cloudformation,terraform,kubernetes,all}
+          # output_format: sarif # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
+          # output_file_path: reports/results.sarif # folder and name of results file
